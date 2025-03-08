@@ -4,7 +4,7 @@
 
 ## Description
 
-  Arceust Era is a browser mini-game using the Pokemon API. Walk through several areas in the Safari Zone, catch Pokemon, and set up your dream team!\
+  Arceust Era is a browser mini-game using the Pokemon API. Walk through several areas in the Safari Zone, catch Pokemon, and set up your dream team!
 
   Tech used: MERN stack used, as well as TypeScript, GraphQL/Apollo, JWT auth, the Pokemon API, Ant Design and custom CSS, and is automatically deployed on Render using GitHub Actions.
 

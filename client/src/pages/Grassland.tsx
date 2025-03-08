@@ -180,10 +180,10 @@ export const Grassland = () => {
                     {clicked && <h1>{narration}</h1>}
                     <div className="biomediv">
                         <img className="biomeimg" src={grassimg} alt="grassland" />
-                        {!loading && poke && !isShiny && <img className='wildpokeimg' src={poke?.sprites?.front_default} alt={poke.name} />}
-                        {!loading && poke && isShiny && <img className='wildpokeimg' src={poke?.sprites?.front_shiny} alt={poke.name} />}
-                        {!loading && data?.Me && <img className='mypokemon' src={data?.Me?.team[0]?.back_sprite} />}
-                        {!loading && item && <img className='itemimg' src={item?.sprites?.default} alt={item.name} />}
+                        {!loading && poke && !isShiny && <img className='wildpokeimg' src={poke?.sprites?.front_default} style={poke ? {zIndex: 3} : {zIndex: 0}} alt={poke.name} />}
+                        {!loading && poke && isShiny && <img className='wildpokeimg' src={poke?.sprites?.front_shiny} style={poke ? {zIndex: 3} : {zIndex: 0}} alt={poke.name} />}
+                        {!loading && data.Me && <img className='mypokemon' src={data?.Me?.team[0]?.back_sprite} />}
+                        {!loading && item && <img className='itemimg' src={item?.sprites?.default} style={item ? {zIndex: 3} : {zIndex: 0}} alt={item.name} />}
                     </div>
                     <div className="acnbtndiv">
                         <div className='priacndiv'>

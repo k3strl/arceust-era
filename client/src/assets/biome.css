@@ -61,7 +61,8 @@ main {
   max-width: 600px;
   max-height: 400px;
   margin: auto;
-  border: 15px solid black
+  border: 15px solid black;
+  z-index: 2;
 }
 
 .itemimg {
@@ -87,6 +88,7 @@ main {
   position: absolute;
   width: 300px;
   height: auto;
+  z-index: 3;
 }
 
 .narration {
@@ -194,6 +196,10 @@ main {
   min-width: 50px;
   min-height: 75px;
   padding: 0.25rem;
+}
+
+img:not([src]) {
+  visibility: hidden;
 }
 
 @media (max-width: 650px) {

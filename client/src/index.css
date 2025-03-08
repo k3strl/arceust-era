@@ -50,3 +50,15 @@ aside {
   margin-top: 2rem;
 }
 }
+
+@media (max-width: 650px) {
+  .welcome {
+    margin-left: 0 auto;
+    text-align: center;
+  }
+  
+  .welcome li {
+    text-align: center;
+    margin-left: -10vw;
+  }
+  }
