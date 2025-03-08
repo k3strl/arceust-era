@@ -233,9 +233,9 @@ export default function LoginPage() {
         } catch (err: any) {
             if (err.graphQLErrors.length > 0) {
                 console.error('Failed to signup', err.graphQLErrors[0].message);
-                if (err.graphQLErrors[0].message.includes("email_1 dup key")) {
+                if (err.graphQLErrors[0].message.includes("email_1 dup key") || err.graphQLErrors[0].message.includes("Email already exists")) {
                     showError('Email already exist, please use another');
-                } else if (err.graphQLErrors[0].message.includes("username_1 dup key")) {
+                } else if (err.graphQLErrors[0].message.includes("username_1 dup key") || err.graphQLErrors[0].message.includes("Username already exists")) {
                     showError('Username already exist, please use another');
                 } else {
                     showError(`Oops! Something went wrong! If this continues, please contact the site administrator. Error code: ${err}`);

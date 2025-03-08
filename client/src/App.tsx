@@ -150,7 +150,7 @@ const App: React.FC = () => {
               </Sider>
             }
             <Layout>
-              <Content style={{ margin: '0' }}>
+              <Content style={collapsed ? { margin: '0' } : { margin: '0', minHeight: "490px" }}>
                 <Outlet />
               </Content>
               <Footer style={{ background: "black", color: "white", textAlign: 'center', padding: 0, paddingBottom: "1rem" }}>

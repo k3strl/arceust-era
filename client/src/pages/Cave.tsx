@@ -178,7 +178,7 @@ export const Cave = () => {
     return (
         <>
             {loggedIn &&
-                <div>
+                <div className="biome-container">
                     {!clicked && <h1 className='narration'>You enter the cave.</h1>}
                     {clicked && <h1 className='narration'>{narration}</h1>}
 
@@ -188,24 +188,24 @@ export const Cave = () => {
                         {!loading && poke && isShiny && <img className='wildpokeimg' src={poke?.sprites?.front_shiny} alt={poke.name} />}
                         {!loading && data.Me && <img className='mypokemon' src={data?.Me?.team[0]?.back_sprite} />}
                         {!loading && item && <img className='itemimg' src={item?.sprites?.default} alt={item.name} />}
-                        <div className="acnbtndiv">
-                            <div className='priacndiv'>
-                                <button className='acnbtn' onClick={() => {
-                                    roll()
-                                }
-                                }>Continue!</button>
-                            </div>
-                            <div className='secacndiv'>
-                                {clicked && poke.name && <button className='acnbtn' onClick={() => {
-                                    handleCatchPokemon()
-                                    // setNarration2('')
-                                }}>Catch it!</button>}
-                                {clicked && item.name && <button className='acnbtn' onClick={() => {
-                                    grabItem()
-                                    // setNarration2('')
-                                }}
-                                >Pick up!</button>}
-                            </div>
+                    </div>
+                    <div className="acnbtndiv">
+                        <div className='priacndiv'>
+                            <button className='acnbtn' onClick={() => {
+                                roll()
+                            }
+                            }>Continue!</button>
+                        </div>
+                        <div className='secacndiv'>
+                            {clicked && poke.name && <button className='acnbtn' onClick={() => {
+                                handleCatchPokemon()
+                                // setNarration2('')
+                            }}>Catch it!</button>}
+                            {clicked && item.name && <button className='acnbtn' onClick={() => {
+                                grabItem()
+                                // setNarration2('')
+                            }}
+                            >Pick up!</button>}
                         </div>
                     </div>
                 </div>

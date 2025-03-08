@@ -29,6 +29,34 @@ interface LoginUserArgs {
     password: string;
 }
 
+const checkForExistingUsername = async (usernameLower: RegExp) => {
+    try {
+        const user = await User.findOne({ username: usernameLower });
+        if (user) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}
+
+const checkForExistingEmail = async (emailLower: RegExp) => {
+    try {
+        const user = await User.findOne({ email: emailLower });
+        if (user) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}
+
 // set up resolvers which handle any query or mutation request send to the server
 const resolvers = {
     // me query, which returns the data of the user held in the auth token
@@ -44,13 +72,28 @@ const resolvers = {
     Mutation: {
         // add user, which adds a user to the database using the add user arguments
         addUser: async (_parent: any, { input }: AddUserArgs) => {
-            const user = await User.create({ ...input });
-            const token = signToken(user.username, user.first_name, user.last_name, user.email, user._id);
-            return { token, user };
+            const usernameLower = new RegExp(input.username, 'i');
+            const emailLower = new RegExp(input.email, 'i');
+            const existingUsername = await checkForExistingUsername(usernameLower);
+            const existingEmail = await checkForExistingEmail(emailLower);
+            if (existingUsername) {
+                throw new Error('Username already exists');
+            } else if (existingEmail) {
+                throw new Error('Email already exists');
+            } else {
+                try {
+                    const user = await User.create({ ...input });
+                    const token = signToken(user.username, user.first_name, user.last_name, user.email, user._id);
+                    return { token, user };
+                } catch (err: any) {
+                    throw new Error(`Error signing up user: ${err.errorResponse.errmsg}`);
+                }
+            }
         },
         // login, which checks for the user in the database, matches password, and sends back a new token if the data is correct
         login: async (_parent: any, { username, password }: LoginUserArgs) => {
-            const user = await User.findOne({ username });
+            const usernameLower = new RegExp(username, 'i');
+            const user = await User.findOne({ username: usernameLower });
             if (!user) {
                 throw new AuthenticationError('User not found. Was the intention to signup?');
             }
@@ -58,7 +101,7 @@ const resolvers = {
             if (!pwAuth) {
                 throw new AuthenticationError('Username or password incorrect');
             }
-            const token = signToken(user.username, user.first_name, user.last_name, user.username, user._id);
+            const token = signToken(user.username, user.first_name, user.last_name, user.email, user._id);
             return { token, user };
         },
         updateProfile: async (_parent: any, { input }: any, context: any) => {
@@ -67,23 +110,33 @@ const resolvers = {
             const updatedFirstName = input.first_name;
             const updatedLastName = input.last_name;
             const updatedEmail = input.email;
-            try {
-                console.log(`Updating profile for user ${context.user._id}`)
-                const updatedUser = await User.findByIdAndUpdate(
-                    context.user._id,
-                    { $set: { username: updatedUsername, first_name: updatedFirstName, last_name: updatedLastName, email: updatedEmail } },
-                    { new: true, runValidators: true }
-                );
-                console.log("User profile updated!");
-                return updatedUser;
-            } catch (err: any) {
-                console.error(err.errorResponse.errmsg);
-                if (err.errorResponse.errmsg.includes("username_1 dup key")) {
-                    throw new Error('Error updating user: Username already exist');
-                } else if (err.errorResponse.errmsg.includes("email_1 dup key")) {
-                    throw new Error('Error updating user: Email already exist');
-                } else {
-                    throw new Error(`Error updating user: ${err.errorResponse.errmsg}`);
+            const usernameLower = new RegExp(updatedUsername, 'i');
+            const emailLower = new RegExp(updatedEmail, 'i');
+            const existingUsername = await checkForExistingUsername(usernameLower);
+            const existingEmail = await checkForExistingEmail(emailLower);
+            if (existingUsername && input.username !== context.user.username) {
+                throw new Error('Error updating user: Username already exist');
+            } else if (existingEmail && input.email !== context.user.email) {
+                throw new Error('Error updating user: Email already exist');
+            } else {
+                try {
+                    console.log(`Updating profile for user ${context.user._id}`)
+                    const updatedUser = await User.findByIdAndUpdate(
+                        context.user._id,
+                        { $set: { username: updatedUsername, first_name: updatedFirstName, last_name: updatedLastName, email: updatedEmail } },
+                        { new: true, runValidators: true }
+                    );
+                    console.log("User profile updated!");
+                    return updatedUser;
+                } catch (err: any) {
+                    console.error(err.errorResponse.errmsg);
+                    if (err.errorResponse.errmsg.includes("username_1 dup key")) {
+                        throw new Error('Error updating user: Username already exist');
+                    } else if (err.errorResponse.errmsg.includes("email_1 dup key")) {
+                        throw new Error('Error updating user: Email already exist');
+                    } else {
+                        throw new Error(`Error updating user: ${err.errorResponse.errmsg}`);
+                    }
                 }
             }
         },
@@ -248,7 +301,6 @@ const resolvers = {
                 throw new Error('Error releasing Pokemon');
             }
         },
-        // TODO: ADD reset Team button to party page
         resetTeam: async (_parent: any, { _id }: any, context: any) => {
             if (!context.user) throw new AuthenticationError('You must be logged in');
             try {
@@ -285,7 +337,7 @@ const resolvers = {
                 );
                 const updatedUser = await User.findByIdAndUpdate(
                     context.user._id,
-                    { $push: { team: { $each: [ findTeamMember ], $position: 0 } } },
+                    { $push: { team: { $each: [findTeamMember], $position: 0 } } },
                     { new: true, runValidators: true }
                 );
                 console.log('The users team was updated!');

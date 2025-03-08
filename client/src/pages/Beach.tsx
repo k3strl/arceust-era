@@ -233,7 +233,7 @@ export const Beach = () => {
     return (
         <>
             {loggedIn &&
-                <div>
+                <div className="biome-container">
                     {!clicked && <h1>You go to the beach.</h1>}
                     {clicked && <h1>{narration}</h1>}
                     <div className="biomediv">
@@ -243,34 +243,34 @@ export const Beach = () => {
                         {!loading && poke && isShiny && <img className='wildpokeimg' src={poke?.sprites?.front_shiny} alt={poke.name} />}
                         {!loading && data.Me && <img className='mypokemon' src={data?.Me?.team[0]?.back_sprite} />}
                         {!loading && item && <img className='itemimg' src={item?.sprites?.default} alt={item.name} />}
-                        <div className="acnbtndiv">
-                            <div className='priacndiv'>
-                                <button className='acnbtn' id="walk" onClick={(event) => {
-                                    roll(event)
-                                    setSetting('beach')
+                    </div>
+                    <div className="acnbtndiv">
+                        <div className='priacndiv'>
+                            <button className='acnbtn' id="walk" onClick={(event) => {
+                                roll(event)
+                                setSetting('beach')
 
-                                }
-                                }>Walk</button>
+                            }
+                            }>Walk</button>
 
-                                <button className='acnbtn' id="fish" onClick={(event) => roll(event)
-                                }>Fish</button>
+                            <button className='acnbtn' id="fish" onClick={(event) => roll(event)
+                            }>Fish</button>
 
-                                <button className='acnbtn' id="surf" onClick={(event) => {
-                                    roll(event)
-                                    setSetting('ocean')
+                            <button className='acnbtn' id="surf" onClick={(event) => {
+                                roll(event)
+                                setSetting('ocean')
 
-                                }
-                                }>Surf</button>
-                            </div>
-                            <div className='secacndiv'>
-                                {clicked && poke.name && <button className='acnbtn' onClick={() => {
-                                    handleCatchPokemon()
-                                }}>Catch it!</button>}
-                                {clicked && item.name && <button className='acnbtn' onClick={() => {
-                                    grabItem()
-                                }}
-                                >Pick up!</button>}
-                            </div>
+                            }
+                            }>Surf</button>
+                        </div>
+                        <div className='secacndiv'>
+                            {clicked && poke.name && <button className='acnbtn' onClick={() => {
+                                handleCatchPokemon()
+                            }}>Catch it!</button>}
+                            {clicked && item.name && <button className='acnbtn' onClick={() => {
+                                grabItem()
+                            }}
+                            >Pick up!</button>}
                         </div>
                     </div>
                 </div>}

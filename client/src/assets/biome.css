@@ -25,7 +25,17 @@ main {
   align-items: center;
   position: relative;
   text-align: center;
+}
 
+.biome-container {
+  display: flex;
+  flex-direction: column;
+  background-image: 'https://cdnb.artstation.com/p/assets/images/images/019/585/585/large/ritesh-pawar-caveaa.jpg?1564145923';
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
 }
 
 .btndiv {
@@ -135,12 +145,12 @@ main {
 }
 
 .acnbtndiv {
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
+  position: relative;
   justify-content: center;
-  top: 425px;
   max-height: 80px;
   max-width: 100px;
 
@@ -208,21 +218,21 @@ main {
 
   .mypokemon {
     bottom: 5px;
-    top: 150px;
-    left: 20px;
-    width: 150px;
+    top: 40vw;
+    left: 5vw;
+    width: 35vw;
   }
 
   .itemimg {
-    bottom: 40px;
-    left: 170px;
-    width: 75px;
+    bottom: 10vw;
+    left: 50vw;
+    width: 20vw;
   }
 
   .wildpokeimg {
-    bottom: 25px;
-    left: 170px;
-    width: 100px;
+    bottom: 7vw;
+    left: 40vw;
+    width: 30vw;
   }
 
   .bagdiv {
@@ -251,8 +261,8 @@ main {
   }
 
   .acnbtndiv {
-    top: 35vw;
     flex-direction: row;
+    margin-bottom: 1rem;
   }
 
   .mypokemon {
