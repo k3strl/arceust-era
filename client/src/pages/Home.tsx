@@ -14,7 +14,7 @@ export const Home = () => {
                         Sign-up for an account with us to play our Pokémon minigame!
                         <br />
                         With our game you can:
-                        <ul>
+                        <ul className="welcome">
                             <li>Catch pokemon</li>
                             <li>View your party and inventory</li>
                             <li>Or go to the pokécenter to swap out or release your Pokémon!</li>

@@ -150,12 +150,13 @@ const App: React.FC = () => {
               </Sider>
             }
             <Layout>
-              <Content style={collapsed ? { margin: '0' } : { margin: '0', minHeight: "490px" }}>
+              <Content style={collapsed ? { margin: '0' } : { margin: '0', minHeight: "630px" }}>
                 <Outlet />
               </Content>
-              <Footer style={{ background: "black", color: "white", textAlign: 'center', padding: 0, paddingBottom: "1rem" }}>
+              <Footer style={{ background: "black", color: "white", textAlign: 'center', padding: " 0 0 1rem 0", paddingBottom: "1rem" }}>
                 Arceust Era © 2025 - {new Date().getFullYear()} <br />
-                Created with love by <a href="https://github.com/jsparrowio">jsparrowio</a>, <a href="https://github.com/zlacore">zlacore</a>, <a href="https://github.com/k3strl">k3strl</a>, and <a href="https://github.com/KTek4">KTek4</a>
+                Created with love by <a href="https://github.com/jsparrowio">jsparrowio</a>, <a href="https://github.com/zlacore">zlacore</a>, <a href="https://github.com/k3strl">k3strl</a>, and <a href="https://github.com/KTek4">KTek4</a><br />
+                <a href="https://github.com/jsparrowio/arceust-era?tab=readme-ov-file#disclaimer">Legal Disclaimer</a>
               </Footer>
             </Layout>
           </Layout>
